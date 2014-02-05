@@ -1,0 +1,65 @@
+	<h1> Le Frigo </h1>
+
+	<% if current_user %>
+	<form action="<%= products_new_path %>" method="post"> 
+		<div>
+			<input name="input" type="text" value=""/>
+		</div>
+	</form>
+	<% else %>
+		<form action="<%= products_new_path %>" method="post"> 
+			<div>
+				<input name="input" type="text" value=""/>
+			</div>
+		</form>
+	<% end %>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h2> En Stock </h2>
+				<% @stock.each do |x| %>
+				<div class="produit">
+					<p class="in_line"> <%= x.name %> </p>
+					<p class="in_line"> <%= x.amount %> </p>
+					<form class="in_line" action="products/delete" method="post">
+						<input name="id" type="hidden" value="<%= x.id %>" />
+						<input name="button" type="submit" value="supprimer" />
+					</form>
+					<form class="in_line" action="products/add" method="post">
+						<input name="id" type="hidden" value="<%= x.id %>" />
+						<input name="input" type="submit" value="+" />
+					</form>
+					<form class="in_line" action="products/remove" method="post">
+						<input name="id" type="hidden" value="<%= x.id %>" />
+						<input name="input" type="submit" value="-" />
+					</form>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div id="middle_bar" class="col-md-6 col-md-offset-3">
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class ="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h2> En Rupture </h2>
+				<% @rupture.each do |x| %>
+				<div class="produit">
+					<p class="in_line"> <%= x.name %> </p>
+					<form action="products/purchase" method="post">
+						<input name="id" type="hidden" value="<%= x.id %>" />
+						<input name="input" type="number" value="1"/>
+					</form>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>

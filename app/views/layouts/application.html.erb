@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LeFrigo3</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <% if logged_in? %>
+  <div class="btn-group">
+    <%= link_to "Sign out", logout_path, class: "btn btn-default"%>
+  </div>
+  <% else %>
+  <div class="btn-group">
+    <%= link_to "Sign in", login_path, class: "btn btn-default"%>
+    <%= link_to "Sign up", new_user_path, class: "btn btn-default"%>
+  </div>
+  <% end %>
+
+  <p class="flash">
+    <%= flash.notice %>
+  </p>
+  <div id="container">
+    <div id="content">
+      <%= yield %>
+      <hr>
+      <h6>
+        <% if logged_in? %>
+        <%= "Logged in as #{current_user.email}" %>
+        <% else %>
+        <%= "Sign up now !" %>
+        <% end %>
+      </h6>
+    </div>
+  </div>
+
+</body>
+</html>
